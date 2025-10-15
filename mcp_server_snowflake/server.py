@@ -486,6 +486,13 @@ def parse_arguments():
         default="0.0.0.0",
     )
     parser.add_argument(
+        "--port",
+        required=False,
+        type=int,
+        help="Port number for the server to listen on (default: 9000)",
+        default=9000,
+    )
+    parser.add_argument(
         "--endpoint",
         required=False,
         help="Endpoint path for the MCP server (default: /mcp)",
@@ -602,10 +609,11 @@ def main():
             "streamable-http",
         ]:
             host = os.environ.get("SNOWFLAKE_MCP_HOST", args.host)
+            port = int(os.environ.get("SNOWFLAKE_MCP_PORT", str(args.port)))
             endpoint = os.environ.get("SNOWFLAKE_MCP_ENDPOINT", args.endpoint)
             logger.info(f"Starting server with transport: {args.transport}")
             server.run(
-                transport=args.transport, host=host, port=9000, path=endpoint
+                transport=args.transport, host=host, port=port, path=endpoint
             )
         else:
             logger.info(f"Starting server with transport: {args.transport or 'stdio'}")
