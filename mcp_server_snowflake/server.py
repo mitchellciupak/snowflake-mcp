@@ -612,9 +612,7 @@ def main():
             port = int(os.environ.get("SNOWFLAKE_MCP_PORT", str(args.port)))
             endpoint = os.environ.get("SNOWFLAKE_MCP_ENDPOINT", args.endpoint)
             logger.info(f"Starting server with transport: {args.transport}")
-            server.run(
-                transport=args.transport, host=host, port=port, path=endpoint
-            )
+            server.run(transport=args.transport, host=host, port=port, path=endpoint)
         else:
             logger.info(f"Starting server with transport: {args.transport or 'stdio'}")
             server.run(transport=args.transport or "stdio")
